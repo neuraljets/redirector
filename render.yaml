@@ -3,13 +3,20 @@ services:
     runtime: docker
     name: redirector-app
     repo: https://github.com/neuraljets/redirector
+<<<<<<< HEAD
     build:
       context: .
       dockerfile: Dockerfile
+=======
+>>>>>>> 959695e (Adds render.yaml)
   - type: web
     runtime: docker
     name: redirector-nginx
     repo: https://github.com/neuraljets/redirector
+<<<<<<< HEAD
     build:
       context: ./nginx
       dockerfile: Dockerfile
+=======
+    rootDir: nginx
+>>>>>>> 959695e (Adds render.yaml)
