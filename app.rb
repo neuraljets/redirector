@@ -15,6 +15,16 @@ class RedirectorApp < Sinatra::Base
     content_type :json
   end
 
+  get "/api/redirects" do
+    db = SQLite3::Database.new(DB_PATH)
+    db.results_as_hash = true
+
+    results = db.execute("SELECT * FROM redirects")
+    results.to_json
+  ensure
+    db.close if db
+  end
+
   get "/*" do
     domain = normalize_domain(request.host)
     redirect_url = find_redirect(domain)
@@ -25,16 +35,6 @@ class RedirectorApp < Sinatra::Base
     else
       erb :not_found
     end
-  end
-
-  get "/api/redirects" do
-    db = SQLite3::Database.new(DB_PATH)
-    db.results_as_hash = true
-
-    results = db.execute("SELECT * FROM redirects")
-    results.to_json
-  ensure
-    db.close if db
   end
 
   post "/api/redirects" do
