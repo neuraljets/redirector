@@ -1,0 +1,15 @@
+services:
+  - type: web
+    runtime: docker
+    name: redirector-app
+    repo: https://github.com/neuraljets/redirector
+    build:
+      context: .
+      dockerfile: Dockerfile
+  - type: web
+    runtime: docker
+    name: redirector-nginx
+    repo: https://github.com/neuraljets/redirector
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
