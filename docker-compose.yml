@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "9292:9292"
+    volumes:
+      - .:/app
+      - ./db:/app/db
+    environment:
+      RACK_ENV: development
+      ACME_ENDPOINT: https://acme-staging-v02.api.letsencrypt.org/directory
+    working_dir: /app
+  
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    volumes:
+      - ./db:/app/db
